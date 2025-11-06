@@ -13,7 +13,7 @@ from datetime import datetime
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from github_client import GitHubAPIClient, filter_quality_repos
-from ai_analyzer import AIAnalyzer
+from enhanced_ai_analyzer import EnhancedAIAnalyzer
 from data_analysis import DataAnalysisEngine
 from report_generator import ReportGenerator
 
@@ -46,7 +46,7 @@ def example_ai_analysis():
     
     # Initialize components
     client = GitHubAPIClient()
-    ai_analyzer = AIAnalyzer()
+    ai_analyzer = EnhancedAIAnalyzer()
     
     # Get repositories
     print("Fetching JavaScript repositories...")
@@ -72,7 +72,7 @@ def example_comprehensive_analysis():
     
     # Initialize all components
     client = GitHubAPIClient()
-    ai_analyzer = AIAnalyzer()
+    ai_analyzer = EnhancedAIAnalyzer()
     data_engine = DataAnalysisEngine()
     
     # Get multi-language trending repos
@@ -161,7 +161,7 @@ def example_similarity_analysis():
     
     # Initialize components
     client = GitHubAPIClient()
-    ai_analyzer = AIAnalyzer()
+    ai_analyzer = EnhancedAIAnalyzer()
     
     # Get a target repository (example: a popular Python ML library)
     print("Searching for machine learning repositories...")

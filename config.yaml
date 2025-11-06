@@ -6,11 +6,24 @@ github:
   max_repos: 500
   requests_per_hour: 5000 # With token: 5000, without: 60
 
-# AI Model configuration (all free Hugging Face models)
+# AI Model configuration
 models:
-  summarizer: "t5-small" # For repo description summaries
-  embeddings: "distilbert-base-uncased" # For similarity analysis
-  similarity: "sentence-transformers/all-MiniLM-L6-v2" # For text similarity
+  # Primary AI provider: "huggingface" or "deepseek"
+  provider: "deepseek" # Use DeepSeek for better quality
+
+  # DeepSeek configuration
+  deepseek:
+    api_key: ${DEEPSEEK_API_KEY}
+    base_url: "https://api.deepseek.com"
+    model: "deepseek-chat"
+    max_tokens: 1000
+    temperature: 0.3
+
+  # Hugging Face models (fallback)
+  huggingface:
+    summarizer: "t5-small" # For repo description summaries
+    embeddings: "distilbert-base-uncased" # For similarity analysis
+    similarity: "sentence-transformers/all-MiniLM-L6-v2" # For text similarity
 
 # Data collection settings
 data:

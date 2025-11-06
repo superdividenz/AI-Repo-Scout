@@ -30,14 +30,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🔧 Configure GitHub token
+      - name: 🔧 Configure API tokens
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "GitHub token configured"
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          echo "GitHub token configured"
+          if [ -n "$DEEPSEEK_API_KEY" ]; then
+            echo "DeepSeek AI enabled - Enhanced analysis mode"
+          else
+            echo "Using free Hugging Face models"
+          fi
 
       - name: 📊 Generate daily report
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           python src/main.py --timeframe daily --languages python javascript typescript go rust
 
@@ -45,6 +53,7 @@ jobs:
         if: github.event.schedule == '0 6 * * 1'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           python src/main.py --timeframe weekly --languages python javascript typescript go rust java cpp
 

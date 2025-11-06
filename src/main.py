@@ -16,7 +16,7 @@ import json
 sys.path.append(os.path.dirname(__file__))
 
 from github_client import GitHubAPIClient, filter_quality_repos
-from ai_analyzer import AIAnalyzer
+from enhanced_ai_analyzer import EnhancedAIAnalyzer
 from data_analysis import DataAnalysisEngine
 from report_generator import ReportGenerator
 
@@ -38,7 +38,7 @@ class AIRepoScout:
         """
         self.config = self.load_config(config_path)
         self.github_client = GitHubAPIClient()
-        self.ai_analyzer = AIAnalyzer()
+        self.ai_analyzer = EnhancedAIAnalyzer(self.config)
         self.data_engine = DataAnalysisEngine(self.config.get('scoring', {}))
         self.report_generator = ReportGenerator(self.config.get('output', {}))
         

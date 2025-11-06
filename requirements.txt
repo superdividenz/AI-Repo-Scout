@@ -6,11 +6,12 @@ matplotlib>=3.7.0
 seaborn>=0.12.0
 scikit-learn>=1.3.0
 
-# AI/ML dependencies (all free/open source)
+# AI/ML dependencies
 transformers>=4.35.0
 torch>=2.0.0
 sentence-transformers>=2.2.0
 huggingface-hub>=0.17.0
+openai>=1.0.0  # For DeepSeek API integration
 
 # Web dashboard
 streamlit>=1.28.0
@@ -19,6 +20,7 @@ plotly>=5.17.0
 # Data processing
 python-dateutil>=2.8.0
 pytz>=2023.3
+PyYAML>=6.0.0
 
 # Development
 pytest>=7.4.0

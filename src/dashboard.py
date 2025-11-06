@@ -18,7 +18,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
 from github_client import GitHubAPIClient, filter_quality_repos
-from ai_analyzer import AIAnalyzer
+from enhanced_ai_analyzer import EnhancedAIAnalyzer
 from data_analysis import DataAnalysisEngine
 import yaml
 
@@ -96,7 +96,7 @@ class RepoScoutDashboard:
         """Initialize API clients with caching."""
         try:
             github_client = GitHubAPIClient()
-            ai_analyzer = AIAnalyzer()
+            ai_analyzer = EnhancedAIAnalyzer()
             data_engine = DataAnalysisEngine()
             return github_client, ai_analyzer, data_engine
         except Exception as e:

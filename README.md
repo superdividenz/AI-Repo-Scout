@@ -1,23 +1,32 @@
 # 🚀 AI Repo Scout - Zero-Cost Edition
 
-A free, open-source tool for discovering trending GitHub repositories using AI-powered insights. Built entirely with free APIs and open-source models.
+A free, open-source tool for discovering trending GitHub repositories using AI-powered insights. Built entirely with free APIs and open-source models, with optional premium AI integration.
 
 ## ✨ Features
 
 - **📈 Real-time Trending Analysis**: Track GitHub's hottest repositories
-- **🤖 AI-Powered Insights**: Automatic repo summarization using Hugging Face models
+- **🤖 AI-Powered Insights**: Choose between free Hugging Face models or premium DeepSeek AI
 - **📊 Growth Metrics**: Star velocity, contributor growth, engagement scores
-- **🎯 Zero-Cost Operation**: Uses only free APIs and open-source tools
+- **🎯 Zero-Cost Operation**: Core features use only free APIs and open-source tools
 - **📱 Interactive Dashboard**: Beautiful Streamlit web interface
 - **📄 Automated Reports**: Daily/weekly markdown reports for GitHub Pages
+- **⚡ Enhanced AI (Optional)**: DeepSeek integration for professional-grade analysis
 
-## 🛠️ Tech Stack (All Free!)
+## 🛠️ Tech Stack
+
+### Core (100% Free)
 
 - **Data Source**: GitHub REST/GraphQL API (free tier)
 - **AI Models**: Hugging Face transformers (distilbert, t5-small)
 - **Computation**: Python + pandas + scikit-learn
 - **Dashboard**: Streamlit (free hosting available)
 - **Deployment**: GitHub Pages, Streamlit Cloud
+
+### Enhanced AI (Optional)
+
+- **Premium AI**: DeepSeek API for superior analysis quality
+- **Cost**: ~$0.001 per repository analysis (ultra-low cost)
+- **Benefits**: 10x better insights, context-aware summaries, professional recommendations
 - **Storage**: SQLite (local) or CSV files
 
 ## 🚀 Quick Start
@@ -45,16 +54,24 @@ cd AI-Repo-Scout
    pip install -r requirements.txt
    ```
 
-3. **Set up GitHub token** (optional but recommended):
+3. **Set up API keys** (optional but recommended):
 
    ```bash
+   # GitHub token for higher rate limits (free)
    export GITHUB_TOKEN=your_github_token_here
+
+   # DeepSeek API for enhanced AI analysis (optional, paid)
+   export DEEPSEEK_API_KEY=your_deepseek_key_here
    ```
 
-4. **Run a quick demo**:
+4. **Run demos**:
 
    ```bash
-   python demo.py
+   # Basic demo (no dependencies required)
+   python3 demo.py
+
+   # DeepSeek AI demo (shows enhanced features)
+   python3 demo_deepseek.py
    ```
 
 5. **Generate your first report**:
