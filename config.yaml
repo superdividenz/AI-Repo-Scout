@@ -1,0 +1,48 @@
+# Configuration for AI Repo Scout
+github:
+  # GitHub token (optional but recommended for higher rate limits)
+  token: ${GITHUB_TOKEN}
+  base_url: "https://api.github.com"
+  max_repos: 500
+  requests_per_hour: 5000 # With token: 5000, without: 60
+
+# AI Model configuration (all free Hugging Face models)
+models:
+  summarizer: "t5-small" # For repo description summaries
+  embeddings: "distilbert-base-uncased" # For similarity analysis
+  similarity: "sentence-transformers/all-MiniLM-L6-v2" # For text similarity
+
+# Data collection settings
+data:
+  trending_timeframes: ["daily", "weekly", "monthly"]
+  languages: ["python", "javascript", "typescript", "go", "rust", "java"]
+  min_stars: 10
+  max_age_days: 30
+
+# Scoring algorithm weights
+scoring:
+  star_velocity_weight: 0.3
+  contributor_growth_weight: 0.2
+  issue_activity_weight: 0.15
+  pr_activity_weight: 0.15
+  community_engagement_weight: 0.1
+  freshness_weight: 0.1
+
+# Output configuration
+output:
+  formats: ["markdown", "html", "json"]
+  reports_dir: "reports"
+  archive_days: 30
+
+# Dashboard settings
+dashboard:
+  title: "🚀 AI Repo Scout"
+  theme: "light"
+  auto_refresh_minutes: 60
+  max_display_repos: 100
+
+# Deployment settings
+deployment:
+  github_pages: true
+  streamlit_cloud: true
+  update_frequency: "daily" # daily, weekly, manual

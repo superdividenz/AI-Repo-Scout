@@ -1,0 +1,57 @@
+name: 🎯 Deploy Streamlit Dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/dashboard.py"
+      - "requirements.txt"
+      - "config.yaml"
+  workflow_dispatch:
+
+jobs:
+  deploy-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: 📦 Test dashboard dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🧪 Test dashboard startup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Test that the dashboard can import without errors
+          python -c "
+          import sys
+          sys.path.append('src')
+          try:
+              from dashboard import RepoScoutDashboard
+              print('✅ Dashboard imports successfully')
+          except Exception as e:
+              print(f'❌ Dashboard import failed: {e}')
+              sys.exit(1)
+          "
+
+      - name: 📊 Generate sample data for dashboard
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Generate a small dataset for dashboard testing
+          python src/main.py --timeframe daily --languages python javascript
+
+      - name: 🚀 Deploy notification
+        run: |
+          echo "Dashboard ready for Streamlit Cloud deployment!"
+          echo "Visit: https://streamlit.io/cloud to deploy from this repository"
+          echo "Entry point: src/dashboard.py"

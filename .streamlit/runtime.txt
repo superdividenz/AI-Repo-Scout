@@ -1,0 +1,2 @@
+# Python version for Streamlit Cloud deployment
+python = "3.9"

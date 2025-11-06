@@ -1,0 +1,110 @@
+name: 🚀 AI Repo Scout - Daily Report Generation
+
+on:
+  schedule:
+    # Run daily at 6:00 AM UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch: # Allow manual triggers
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "config.yaml"
+
+jobs:
+  generate-reports:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+          cache: "pip"
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔧 Configure GitHub token
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "GitHub token configured"
+
+      - name: 📊 Generate daily report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python src/main.py --timeframe daily --languages python javascript typescript go rust
+
+      - name: 📈 Generate weekly report (Mondays only)
+        if: github.event.schedule == '0 6 * * 1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python src/main.py --timeframe weekly --languages python javascript typescript go rust java cpp
+
+      - name: 📑 Commit and push reports
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add reports/
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📊 Auto-generated report - $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
+
+      - name: 🌐 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+          cname: ai-repo-scout.github.io # Optional: custom domain
+
+  update-readme:
+    needs: generate-reports
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📝 Update README with latest report
+        run: |
+          # Get the latest daily report
+          LATEST_REPORT=$(ls -t reports/daily_report_*.md 2>/dev/null | head -1)
+
+          if [ -n "$LATEST_REPORT" ]; then
+            REPORT_DATE=$(basename "$LATEST_REPORT" | sed 's/daily_report_\(.*\)\.md/\1/')
+            FORMATTED_DATE=$(date -d "$REPORT_DATE" +"%B %d, %Y" 2>/dev/null || echo "$REPORT_DATE")
+            
+            # Update README with latest report link
+            sed -i "s|Latest Report:.*|Latest Report: [Daily Report - $FORMATTED_DATE](./reports/$(basename "$LATEST_REPORT"))|" README.md
+            
+            # Update timestamp
+            sed -i "s|Last Updated:.*|Last Updated: $(date +'%Y-%m-%d %H:%M:%S UTC')|" README.md
+          fi
+
+      - name: 📤 Commit README updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if git diff --quiet; then
+            echo "No README changes to commit"
+          else
+            git add README.md
+            git commit -m "📝 Update README with latest report"
+            git push
+          fi

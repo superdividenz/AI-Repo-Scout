@@ -1,0 +1,34 @@
+# Streamlit configuration for AI Repo Scout dashboard
+
+[global]
+# Development mode for debugging
+developmentMode = false
+
+# Share button configuration
+showWarningOnDirectExecution = false
+
+[server]
+# Server configuration
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+
+# File watcher configuration
+fileWatcherType = "auto"
+
+[browser]
+# Browser configuration
+gatherUsageStats = false
+serverAddress = "localhost"
+
+[theme]
+# UI theme configuration
+primaryColor = "#FF6B6B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+[client]
+# Client configuration
+toolbarMode = "minimal"
