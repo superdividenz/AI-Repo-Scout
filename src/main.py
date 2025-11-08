@@ -16,7 +16,7 @@ import json
 sys.path.append(os.path.dirname(__file__))
 
 from github_client import GitHubAPIClient, filter_quality_repos
-from enhanced_ai_analyzer import EnhancedAIAnalyzer
+from simple_ai_analyzer import EnhancedAIAnalyzer
 from data_analysis import DataAnalysisEngine
 from report_generator import ReportGenerator
 
@@ -30,13 +30,17 @@ logger = logging.getLogger(__name__)
 class AIRepoScout:
     """Main application class for AI Repo Scout."""
     
-    def __init__(self, config_path: str = "config.yaml"):
+    def __init__(self, config_path: str = "config.yaml", ai_provider: str = None):
         """Initialize the AI Repo Scout application.
         
         Args:
             config_path: Path to configuration file
         """
         self.config = self.load_config(config_path)
+        # If an AI provider override was passed on the CLI, apply it to the config
+        if ai_provider:
+            self.config.setdefault('models', {})
+            self.config['models']['provider'] = ai_provider
         self.github_client = GitHubAPIClient()
         self.ai_analyzer = EnhancedAIAnalyzer(self.config)
         self.data_engine = DataAnalysisEngine(self.config.get('scoring', {}))
@@ -323,11 +327,17 @@ def main():
         action='store_true',
         help='Launch Streamlit dashboard'
     )
+
+    parser.add_argument(
+        '--ai-provider',
+        choices=['deepseek', 'huggingface'],
+        help='AI provider to use (overrides configuration).'
+    )
     
     args = parser.parse_args()
     
-    # Initialize application
-    scout = AIRepoScout(args.config)
+    # Initialize application (allow CLI override of AI provider)
+    scout = AIRepoScout(args.config, ai_provider=args.ai_provider)
     
     if args.dashboard:
         # Launch Streamlit dashboard

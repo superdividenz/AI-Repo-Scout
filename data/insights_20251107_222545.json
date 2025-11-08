@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "total_repos": 5,
+    "avg_momentum_score": 72.77307692307693,
+    "top_momentum_score": 83.10000000000001,
+    "analysis_timestamp": "2025-11-07T22:25:45.022311"
+  },
+  "top_performers": {
+    "highest_momentum": [
+      {
+        "name": "venom",
+        "full_name": "boku7/venom",
+        "momentum_score": 83.10000000000001,
+        "stars": 84
+      },
+      {
+        "name": "Pixelle-Video",
+        "full_name": "AIDC-AI/Pixelle-Video",
+        "momentum_score": 74.6076923076923,
+        "stars": 26
+      },
+      {
+        "name": "DiscordRAT",
+        "full_name": "saildrag/DiscordRAT",
+        "momentum_score": 74.4,
+        "stars": 48
+      },
+      {
+        "name": "MaixFace",
+        "full_name": "LUNGMEN-GOV/MaixFace",
+        "momentum_score": 71.35000000000001,
+        "stars": 20
+      },
+      {
+        "name": "comfyui-ImageSelectorbyPrompt",
+        "full_name": "colorAi/comfyui-ImageSelectorbyPrompt",
+        "momentum_score": 60.407692307692315,
+        "stars": 13
+      }
+    ],
+    "fastest_growing": [
+      {
+        "name": "venom",
+        "full_name": "boku7/venom",
+        "star_velocity": 84.0,
+        "stars": 84
+      },
+      {
+        "name": "DiscordRAT",
+        "full_name": "saildrag/DiscordRAT",
+        "star_velocity": 48.0,
+        "stars": 48
+      },
+      {
+        "name": "Pixelle-Video",
+        "full_name": "AIDC-AI/Pixelle-Video",
+        "star_velocity": 26.0,
+        "stars": 26
+      },
+      {
+        "name": "MaixFace",
+        "full_name": "LUNGMEN-GOV/MaixFace",
+        "star_velocity": 20.0,
+        "stars": 20
+      },
+      {
+        "name": "comfyui-ImageSelectorbyPrompt",
+        "full_name": "colorAi/comfyui-ImageSelectorbyPrompt",
+        "star_velocity": 13.0,
+        "stars": 13
+      }
+    ],
+    "most_engaging": [
+      {
+        "name": "Pixelle-Video",
+        "full_name": "AIDC-AI/Pixelle-Video",
+        "engagement_score": 57.692307692307686,
+        "contributors": 3
+      },
+      {
+        "name": "MaixFace",
+        "full_name": "LUNGMEN-GOV/MaixFace",
+        "engagement_score": 57.49999999999999,
+        "contributors": 1
+      },
+      {
+        "name": "venom",
+        "full_name": "boku7/venom",
+        "engagement_score": 53.333333333333336,
+        "contributors": 1
+      },
+      {
+        "name": "comfyui-ImageSelectorbyPrompt",
+        "full_name": "colorAi/comfyui-ImageSelectorbyPrompt",
+        "engagement_score": 42.69230769230769,
+        "contributors": 1
+      },
+      {
+        "name": "DiscordRAT",
+        "full_name": "saildrag/DiscordRAT",
+        "engagement_score": 30.0,
+        "contributors": 4
+      }
+    ]
+  },
+  "language_trends": {
+    "Python": {
+      "count": 5,
+      "avg_momentum": 72.77307692307693,
+      "avg_stars": 38.2,
+      "top_repo": "venom"
+    }
+  },
+  "growth_patterns": {
+    "by_age": {
+      "new (0-30 days)": 72.77307692307693,
+      "young (31-90 days)": NaN,
+      "mature (91-365 days)": NaN,
+      "established (>365 days)": NaN
+    },
+    "by_size": {
+      "small (0-100 stars)": 72.77307692307693,
+      "medium (101-1000 stars)": NaN,
+      "large (1001-10000 stars)": NaN,
+      "huge (>10000 stars)": NaN
+    },
+    "growth_potential_distribution": {
+      "high": 4,
+      "moderate": 1,
+      "low": 0,
+      "exceptional": 0
+    }
+  },
+  "repository_types": {
+    "experimental": 4,
+    "community": 1
+  },
+  "trend_directions": {
+    "rising": 5
+  },
+  "recommendations": [
+    "\ud83d\udd25 Python repositories are showing the highest momentum right now",
+    "\u2b50 4 emerging repositories show exceptional growth potential",
+    "\ud83d\udc8e 5 undervalued repositories could be tomorrow's stars"
+  ],
+  "ai_analysis": {
+    "total_repos": 5,
+    "language_trends": {
+      "Python": 5
+    },
+    "category_trends": {
+      "ai": 3
+    },
+    "popularity_metrics": {
+      "avg_stars": 38.2,
+      "median_stars": 26.0,
+      "total_stars": 191,
+      "star_ranges": {
+        "0-10": 0,
+        "11-100": 5,
+        "101-1000": 0,
+        "1001-10000": 0,
+        "10000+": 0
+      }
+    },
+    "growth_analysis": {
+      "avg_momentum": 53.346000000000004,
+      "high_momentum_count": 0,
+      "emerging_count": 4
+    },
+    "recommendations": [
+      "\ud83d\udd25 Top trending languages: Python",
+      "\ud83d\udcc8 Hot categories: ai",
+      "\ud83d\udca1 4 emerging projects worth monitoring",
+      "\ud83c\udfaf Consider contributing to repositories with active communities",
+      "\ud83d\udcda Explore projects in trending categories to stay current"
+    ],
+    "timestamp": "2025-11-07T22:25:45.105135"
+  },
+  "ai_summaries": {
+    "boku7/venom": "venom is a Python project. that Venom C2 is a dependency free Python3 Command Control framework for redteam persistence.",
+    "AIDC-AI/Pixelle-Video": "Pixelle-Video is a Python project. that AI \u5168\u81ea\u52a8\u77ed\u89c6\u9891\u5f15\u64ce AI Fully Automated Short Video Engine. focused on ai. tagged with: aigc, comfyui, image-generation.",
+    "saildrag/DiscordRAT": "DiscordRAT is a Python project. that Discord Remote Administration Tool fully written in Python3. focused on ai. tagged with: bot, cheat, discord.",
+    "LUNGMEN-GOV/MaixFace": "MaixFace is a Python project. that MaixFace is an AI-based face recognition access control system built on Maixduino featuring remot.... focused on ai. tagged with: access-control, ai, embedded.",
+    "colorAi/comfyui-ImageSelectorbyPrompt": "comfyui-ImageSelectorbyPrompt is a Python project. that Choose which image to use based on the keywords in the prompt.."
+  }
+}

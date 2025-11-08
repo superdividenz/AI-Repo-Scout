@@ -18,7 +18,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
 from github_client import GitHubAPIClient, filter_quality_repos
-from enhanced_ai_analyzer import EnhancedAIAnalyzer
+from simple_ai_analyzer import EnhancedAIAnalyzer
 from data_analysis import DataAnalysisEngine
 import yaml
 

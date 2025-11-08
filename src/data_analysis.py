@@ -40,7 +40,17 @@ class DataAnalysisEngine:
         Args:
             config: Configuration dictionary for scoring weights
         """
-        self.config = config or self._default_config()
+        # If config is provided but doesn't have the expected structure, merge with defaults
+        default_config = self._default_config()
+        if config:
+            # Merge provided config with defaults
+            for key in default_config:
+                if key in config:
+                    if isinstance(config[key], dict) and isinstance(default_config[key], dict):
+                        default_config[key].update(config[key])
+                    else:
+                        default_config[key] = config[key]
+        self.config = default_config
         self.scaler = MinMaxScaler()
         
     def _default_config(self) -> Dict:
@@ -102,9 +112,9 @@ class DataAnalysisEngine:
     def _calculate_trend_metrics(self, df: pd.DataFrame) -> pd.DataFrame:
         """Calculate various trend metrics for repositories."""
         
-        # Convert date strings to datetime
-        df['created_at'] = pd.to_datetime(df['created_at'])
-        df['updated_at'] = pd.to_datetime(df['updated_at'])
+        # Convert date strings to datetime and make timezone-naive for comparison
+        df['created_at'] = pd.to_datetime(df['created_at']).dt.tz_localize(None)
+        df['updated_at'] = pd.to_datetime(df['updated_at']).dt.tz_localize(None)
         
         # Calculate age and time-based metrics
         now = datetime.now()

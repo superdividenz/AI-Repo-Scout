@@ -1,0 +1,55 @@
+# Docker ignore file for AI Repo Scout
+# Virtual environments
+ai-repo-scout-env/
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Git
+.git/
+.gitignore
+
+# Documentation builds
+docs/_build/
+
+# Data that shouldn't be in image (use volumes)
+data/models/*.pkl
+data/analysis_*.csv
+data/insights_*.json
+
+# Reports (use volumes)
+reports/*.html
+reports/*.md
+reports/*.json
+
+# Environment files (use docker-compose env)
+.env
+.env.local
+
+# Node modules (if any)
+node_modules/

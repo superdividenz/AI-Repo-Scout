@@ -9,7 +9,7 @@ github:
 # AI Model configuration
 models:
   # Primary AI provider: "huggingface" or "deepseek"
-  provider: "deepseek" # Use DeepSeek for better quality
+  provider: "huggingface" # Use free Hugging Face models by default
 
   # DeepSeek configuration
   deepseek:

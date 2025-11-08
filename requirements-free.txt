@@ -1,0 +1,23 @@
+# Free-tier AI Repo Scout - Minimal Dependencies
+# Core dependencies
+requests>=2.31.0
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-learn>=1.3.0
+
+# Web framework
+streamlit>=1.28.0
+
+# Hugging Face (CPU-only, no torch requirement)
+sentence-transformers>=2.2.0
+
+# Template engine
+jinja2>=3.1.0
+
+# Configuration
+PyYAML>=6.0
+
+# Optional: DeepSeek compatibility (only if user wants to upgrade later)
+openai>=1.0.0

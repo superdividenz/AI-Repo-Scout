@@ -1,0 +1,41 @@
+# Docker Compose for AI Repo Scout
+version: '3.8'
+
+services:
+  ai-repo-scout:
+    build: .
+    container_name: ai-repo-scout
+    ports:
+      - "8501:8501"  # Streamlit dashboard
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+    volumes:
+      # Persist data and reports
+      - ./data:/app/data
+      - ./reports:/app/reports
+      # Mount config for easy updates
+      - ./config.yaml:/app/config.yaml
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Optional: Analytics service for batch processing
+  ai-repo-scout-batch:
+    build: .
+    container_name: ai-repo-scout-batch
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./config.yaml:/app/config.yaml
+    command: ["python3", "src/main.py", "--timeframe", "daily", "--languages", "python", "javascript", "--ai-provider", "huggingface"]
+    profiles:
+      - batch  # Only run when specifically requested
+    restart: "no"
