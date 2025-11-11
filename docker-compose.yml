@@ -6,7 +6,7 @@ services:
     build: .
     container_name: ai-repo-scout
     ports:
-      - "8501:8501"  # Streamlit dashboard
+      - "8503:8503"  # Streamlit dashboard
     environment:
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
@@ -18,7 +18,7 @@ services:
       - ./config.yaml:/app/config.yaml
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8503/_stcore/health"]
       interval: 30s
       timeout: 10s
       retries: 3

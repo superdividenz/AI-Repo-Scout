@@ -19,6 +19,7 @@ from github_client import GitHubAPIClient, filter_quality_repos
 from simple_ai_analyzer import EnhancedAIAnalyzer
 from data_analysis import DataAnalysisEngine
 from report_generator import ReportGenerator
+from linkedin_generator import LinkedInContentGenerator
 
 logging.basicConfig(
     level=logging.INFO,
@@ -45,6 +46,7 @@ class AIRepoScout:
         self.ai_analyzer = EnhancedAIAnalyzer(self.config)
         self.data_engine = DataAnalysisEngine(self.config.get('scoring', {}))
         self.report_generator = ReportGenerator(self.config.get('output', {}))
+        self.linkedin_generator = LinkedInContentGenerator(self.config)
         
         logger.info("AI Repo Scout initialized successfully")
     
@@ -225,6 +227,9 @@ class AIRepoScout:
             # Step 3: Generate reports
             report_files = self.generate_reports(df, insights, timeframe)
             
+            # Step 3.5: Generate LinkedIn content (if requested)
+            linkedin_files = []
+            
             # Step 4: Export analysis data
             data_files = []
             if df is not None and not df.empty:
@@ -240,6 +245,7 @@ class AIRepoScout:
                 "duration_seconds": duration,
                 "repositories_analyzed": len(repos),
                 "report_files": report_files,
+                "linkedin_files": linkedin_files,
                 "data_files": data_files,
                 "insights_summary": {
                     "total_repos": insights.get('summary', {}).get('total_repos', 0),
@@ -334,6 +340,12 @@ def main():
         help='AI provider to use (overrides configuration).'
     )
     
+    parser.add_argument(
+        '--linkedin',
+        action='store_true',
+        help='Generate LinkedIn content from analysis results'
+    )
+    
     args = parser.parse_args()
     
     # Initialize application (allow CLI override of AI provider)
@@ -352,6 +364,43 @@ def main():
     else:
         # Run single analysis
         results = scout.run_full_analysis(args.timeframe, args.languages)
+        
+        # Generate LinkedIn content if requested
+        if args.linkedin and results.get('success'):
+            try:
+                print("\n📱 Generating LinkedIn content...")
+                
+                # Load the analysis data
+                if results.get('data_files'):
+                    import pandas as pd
+                    csv_file = [f for f in results['data_files'] if f.endswith('.csv')]
+                    json_file = [f for f in results['data_files'] if f.endswith('.json')]
+                    
+                    if csv_file and json_file:
+                        df = pd.read_csv(csv_file[0])
+                        with open(json_file[0], 'r') as f:
+                            insights = json.load(f)
+                        
+                        # Generate LinkedIn posts
+                        posts = scout.linkedin_generator.generate_all_posts(insights, df)
+                        
+                        # Export to files
+                        linkedin_dir = scout.linkedin_generator.export_posts_to_files(posts)
+                        
+                        print(f"✅ LinkedIn content generated in {linkedin_dir}/")
+                        print("📋 Post types created:")
+                        for post_type in posts.keys():
+                            print(f"  • {post_type.replace('_', ' ').title()}")
+                        
+                        # Show posting schedule
+                        schedule = scout.linkedin_generator.create_posting_schedule(posts)
+                        print(f"\n📅 Suggested posting schedule:")
+                        for day, post_title in schedule.items():
+                            if post_title:
+                                print(f"  • {day.title()}: {post_title}")
+                    
+            except Exception as e:
+                print(f"❌ LinkedIn content generation failed: {e}")
         
         if results.get('success'):
             print("✅ Analysis completed successfully!")
